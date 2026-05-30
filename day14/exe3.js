@@ -23,7 +23,7 @@ let data = resultLeads.map((lead) => {
 
 let newLeads=data.filter((lead)=> lead.status=== "new");
 
-let totalQualifiedValue=data.filter((lead)=> lead.status=== "qualified").reduce((total,lead)=> total+(lead.lead_value),0);
+let totalQualifiedValue=data.filter((lead)=> lead.status=== "qualified").reduce((total,lead)=> total+parseInt(lead.lead_value),0);
 
 let totalCount=laravelResponse.total;
 

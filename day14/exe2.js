@@ -5,7 +5,7 @@ let agents = [
 ];
 
 let agentData= agents.map((agent)=>{
-    return `${agent?.name}- ${agent.address?.city ?? "Not specified"}- ${agent?.leads ?? "0 leads"}`;
+    return `${agent?.name}- ${agent.address?.city ?? "Not specified"}- ${agent?.leads ?? 0} leads`;
 })
 
 console.log(agentData);
