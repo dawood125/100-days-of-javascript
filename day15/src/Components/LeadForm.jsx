@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 
-const LeadForm = ({ leads }) => {
+const LeadForm = ({ onAddLead }) => {
 
     const [errors, setErrors] = useState({});
     const [submitting, setSubmitting] = useState(false);
@@ -42,7 +42,7 @@ const LeadForm = ({ leads }) => {
 
         setSubmitting(true);
         try {
-            leads((prev) => [...prev, { id: Date.now(), name: formData.name, status: formData.status }])
+            onAddLead((prev) => [...prev, { id: Date.now(), name: formData.name, status: formData.status }])
             setFormData({ name: "", status: "new" })
             setErrors({});
             alert("Lead created successfully!");

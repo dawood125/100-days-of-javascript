@@ -9,6 +9,7 @@ const ShowLeads = () => {
   ];
 
   const [leads, setLeads] = useState(initialLeads);
+  const [filter, setFilter] = useState("all");
 
   let totalLeadCount = leads.length;
   let newLeadsCount = leads.filter((lead) => lead.status === "new").length;
@@ -28,16 +29,15 @@ const ShowLeads = () => {
     setLeads(updatedLeads);
   };
 
-  let allLeads = () => {
-    setLeads(leads);
-  };
-  let newLeads = () => {
-    let newLeads = leads.filter((lead) => lead.status === "new").length;
-    setLeads(newLeads);
-  };
-  let doneLeads = () => {
-    let doneLeads = leads.filter((lead) => lead.status === "done").length;
-  };
+  let filteredLeads = leads.filter((lead) => {
+    if (filter === "all") {
+      return lead;
+    } else if (filter === "new") {
+      return lead.status === "new";
+    } else if (filter === "done") {
+      return lead.status === "done";
+    }
+  });
   return (
     <>
       <main className="MainSection">
@@ -53,12 +53,9 @@ const ShowLeads = () => {
               <h2>Filters</h2>
             </div>
             <div>
-              <button
-                onClick={() => {allLeads}}>
-                All
-              </button>
-              <button onClick={()=>{newLeads}}>New</button>
-              <button onClick={()=>{doneLeads}}>Done</button>
+              <button onClick={() => setFilter("all")}>All</button>
+              <button onClick={() => setFilter("new")}>New</button>
+              <button onClick={() => setFilter("done")}>Done</button>
             </div>
           </div>
           <table border={1} cellSpacing={10}>
@@ -71,7 +68,7 @@ const ShowLeads = () => {
               </tr>
             </thead>
             <tbody>
-              {leads.map((lead) => (
+              {filteredLeads.map((lead) => (
                 <tr key={lead.id}>
                   <td>{lead.id}</td>
                   <td>{lead.name}</td>
@@ -98,7 +95,7 @@ const ShowLeads = () => {
             </tbody>
           </table>
         </div>
-        <LeadForm leads={setLeads}></LeadForm>
+        <LeadForm onAddLead={setLeads}></LeadForm>
       </main>
     </>
   );
